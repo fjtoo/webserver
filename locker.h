@@ -16,7 +16,7 @@ public:
     ~locker();
     bool lock(); // 加锁
     bool unlock(); // 解锁
-    pthread_mutex_t* get(); // 用于
+    pthread_mutex_t* get();
 };
 
 locker::locker()

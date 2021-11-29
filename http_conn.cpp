@@ -27,3 +27,8 @@ void modifyfd(int epollfd, int fd, int ev) {
     event.events = ev | EPOLLONESHOT | EPOLLRDHUP;
     epoll_ctl(epollfd, EPOLL_CTL_MOD, fd, &event);
 }
+
+void http_conn::init(int sockfd, const sockaddr_in& addr) {
+    m_socket = sockfd;
+    m_address = addr;
+}

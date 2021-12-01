@@ -1,11 +1,10 @@
 #ifndef THREADPOOL_H
 #define THREADPOOL_H
 
-#include<list>
-#include<locker.h>
-#include<exception>
-#include<cstdio>
-#include<locker.h>
+#include <list>
+#include <exception>
+#include <cstdio>
+#include "locker.h"
 
 // 线程池类，定义成模板类
 template<typename T>
@@ -42,7 +41,7 @@ public:
 
 template<typename T>
 threadpool<T>::threadpool(int thread_number, int max_requests) : 
-    m_thread_number(thread_number), m_max_request(max_requests),
+    m_thread_number(thread_number), m_max_requests(max_requests),
     m_stop(false), m_threads(NULL) {
 
     if(thread_number <= 0 || max_requests <= 0) {
@@ -58,7 +57,7 @@ threadpool<T>::threadpool(int thread_number, int max_requests) :
     for(int i = 0; i < m_thread_number; ++i) {
         printf("create the %dth thread\n", i);
         // 这里有个技巧，把this当作参数传给worker，这样能够在worker里调用非静态成员
-        if(pthread_create(m_threads + i, worker, this) != 0) {
+        if(pthread_create(m_threads + i, NULL, worker, this) != 0) {
             delete[] m_threads;
             throw std::exception();
         }

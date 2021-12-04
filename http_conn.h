@@ -14,6 +14,7 @@
 #include <string.h>
 #include <sys/mman.h>
 #include <sys/uio.h>
+#include <stdarg.h>
 
 class http_conn
 {
